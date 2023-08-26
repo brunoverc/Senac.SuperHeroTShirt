@@ -40,5 +40,11 @@ namespace SuperHeroShirt
             FormEstoque form = new FormEstoque();
             form.ShowDialog();
         }
+
+        private void bntVender_Click(object sender, EventArgs e)
+        {
+            FormVenda form = new FormVenda();
+            form.ShowDialog();
+        }
     }
 }
