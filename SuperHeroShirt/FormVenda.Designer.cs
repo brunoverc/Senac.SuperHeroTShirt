@@ -56,6 +56,13 @@
             this.clienteTableAdapter = new SuperHeroShirt.SuperHeroShirtsDBDataSetTableAdapters.ClienteTableAdapter();
             this.tableAdapterManager = new SuperHeroShirt.SuperHeroShirtsDBDataSetTableAdapters.TableAdapterManager();
             this.txtID = new System.Windows.Forms.TextBox();
+            this.txtIdItensVenda = new System.Windows.Forms.TextBox();
+            this.itensVendaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.itensVendaTableAdapter = new SuperHeroShirt.SuperHeroShirtsDBDataSetTableAdapters.ItensVendaTableAdapter();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.produtoTableAdapter = new SuperHeroShirt.SuperHeroShirtsDBDataSetTableAdapters.ProdutoTableAdapter();
+            this.produtoIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superHeroShirtsDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionariosBindingSource)).BeginInit();
@@ -63,6 +70,8 @@
             this.panelItensVenda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItensVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantidade)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itensVendaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -204,10 +213,12 @@
             this.panelItensVenda.Controls.Add(this.nudQuantidade);
             this.panelItensVenda.Controls.Add(this.cmbProduto);
             this.panelItensVenda.Controls.Add(this.label6);
+            this.panelItensVenda.Controls.Add(this.txtIdItensVenda);
             this.panelItensVenda.Location = new System.Drawing.Point(7, 320);
             this.panelItensVenda.Name = "panelItensVenda";
             this.panelItensVenda.Size = new System.Drawing.Size(533, 389);
             this.panelItensVenda.TabIndex = 10;
+            this.panelItensVenda.Visible = false;
             // 
             // btnInserirItemVenda
             // 
@@ -219,10 +230,17 @@
             this.btnInserirItemVenda.TabIndex = 11;
             this.btnInserirItemVenda.Text = "Inserir";
             this.btnInserirItemVenda.UseVisualStyleBackColor = true;
+            this.btnInserirItemVenda.Click += new System.EventHandler(this.btnInserirItemVenda_Click);
             // 
             // dgvItensVenda
             // 
+            this.dgvItensVenda.AllowUserToAddRows = false;
+            this.dgvItensVenda.AutoGenerateColumns = false;
             this.dgvItensVenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvItensVenda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.produtoIdDataGridViewTextBoxColumn,
+            this.quantidadeDataGridViewTextBoxColumn});
+            this.dgvItensVenda.DataSource = this.itensVendaBindingSource;
             this.dgvItensVenda.Location = new System.Drawing.Point(17, 170);
             this.dgvItensVenda.Name = "dgvItensVenda";
             this.dgvItensVenda.Size = new System.Drawing.Size(491, 216);
@@ -250,6 +268,7 @@
             // 
             // nudQuantidade
             // 
+            this.nudQuantidade.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.itensVendaBindingSource, "Quantidade", true));
             this.nudQuantidade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudQuantidade.Location = new System.Drawing.Point(388, 77);
             this.nudQuantidade.Name = "nudQuantidade";
@@ -258,12 +277,16 @@
             // 
             // cmbProduto
             // 
+            this.cmbProduto.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.itensVendaBindingSource, "ProdutoId", true));
+            this.cmbProduto.DataSource = this.produtoBindingSource;
+            this.cmbProduto.DisplayMember = "NomeProduto";
             this.cmbProduto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbProduto.FormattingEnabled = true;
             this.cmbProduto.Location = new System.Drawing.Point(17, 76);
             this.cmbProduto.Name = "cmbProduto";
             this.cmbProduto.Size = new System.Drawing.Size(365, 28);
             this.cmbProduto.TabIndex = 11;
+            this.cmbProduto.ValueMember = "ProdutoID";
             // 
             // label6
             // 
@@ -308,6 +331,50 @@
             this.txtID.Size = new System.Drawing.Size(100, 26);
             this.txtID.TabIndex = 11;
             // 
+            // txtIdItensVenda
+            // 
+            this.txtIdItensVenda.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.itensVendaBindingSource, "VendaId", true));
+            this.txtIdItensVenda.Location = new System.Drawing.Point(388, 124);
+            this.txtIdItensVenda.Name = "txtIdItensVenda";
+            this.txtIdItensVenda.Size = new System.Drawing.Size(100, 20);
+            this.txtIdItensVenda.TabIndex = 17;
+            // 
+            // itensVendaBindingSource
+            // 
+            this.itensVendaBindingSource.DataMember = "ItensVenda";
+            this.itensVendaBindingSource.DataSource = this.superHeroShirtsDBDataSet;
+            // 
+            // itensVendaTableAdapter
+            // 
+            this.itensVendaTableAdapter.ClearBeforeFill = true;
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataMember = "Produto";
+            this.produtoBindingSource.DataSource = this.superHeroShirtsDBDataSet;
+            // 
+            // produtoTableAdapter
+            // 
+            this.produtoTableAdapter.ClearBeforeFill = true;
+            // 
+            // produtoIdDataGridViewTextBoxColumn
+            // 
+            this.produtoIdDataGridViewTextBoxColumn.DataPropertyName = "ProdutoId";
+            this.produtoIdDataGridViewTextBoxColumn.DataSource = this.produtoBindingSource;
+            this.produtoIdDataGridViewTextBoxColumn.DisplayMember = "NomeProduto";
+            this.produtoIdDataGridViewTextBoxColumn.HeaderText = "ProdutoId";
+            this.produtoIdDataGridViewTextBoxColumn.Name = "produtoIdDataGridViewTextBoxColumn";
+            this.produtoIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.produtoIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.produtoIdDataGridViewTextBoxColumn.ValueMember = "ProdutoID";
+            this.produtoIdDataGridViewTextBoxColumn.Width = 300;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            // 
             // FormVenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,6 +403,8 @@
             this.panelItensVenda.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItensVenda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantidade)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itensVendaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -370,5 +439,12 @@
         private SuperHeroShirtsDBDataSetTableAdapters.ClienteTableAdapter clienteTableAdapter;
         private SuperHeroShirtsDBDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.TextBox txtIdItensVenda;
+        private System.Windows.Forms.BindingSource itensVendaBindingSource;
+        private SuperHeroShirtsDBDataSetTableAdapters.ItensVendaTableAdapter itensVendaTableAdapter;
+        private System.Windows.Forms.BindingSource produtoBindingSource;
+        private SuperHeroShirtsDBDataSetTableAdapters.ProdutoTableAdapter produtoTableAdapter;
+        private System.Windows.Forms.DataGridViewComboBoxColumn produtoIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
     }
 }
